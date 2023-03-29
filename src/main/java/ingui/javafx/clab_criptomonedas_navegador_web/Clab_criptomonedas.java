@@ -1,9 +1,9 @@
 package ingui.javafx.clab_criptomonedas_navegador_web;
 
 import incli.restful.jdbc_servidor_https_spring.cliente_jdbc_servidor_https_spring;
+import static inclui.formularios.control_entradas.k_entradas_tipo_boton;
 import static inclui.formularios.control_entradas.k_entradas_tipo_hidden;
 import static inclui.formularios.control_entradas.k_entradas_tipo_numero;
-import static inclui.formularios.control_entradas.k_entradas_tipo_reset;
 import static inclui.formularios.control_entradas.k_entradas_tipo_submit;
 import static inclui.formularios.control_entradas.k_entradas_tipo_texto;
 import inweb.modelos_html.formularios.control_tablas;
@@ -26,17 +26,18 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import static inclui.formularios.control_tablas.k_control_tablas_opciones_mapa_lista;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas_navegador_web.k_fragmentos_clab_criptomonedas_ruta;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas_navegador_web.k_fragmentos_principales_ruta;
-import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_reset_tex;
-import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_submit_tex;
-import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_texto_tex;
+import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_fragmento_cancelar_tex;
+import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_fragmento_reset_tex;
+import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_fragmento_submit_tex;
+import static inweb.modelos_html.formularios.control_entradas.k_valores_mapa_style_fragmento_texto_tex;
+import inweb.modelos_html.formularios.control_redirecciones;
 import static inweb.modelos_html.formularios.control_tablas.k_control_tablas_opciones_mapa_tabla_fila_fragmento;
 import static inweb.modelos_html.formularios.control_tablas.k_control_tablas_opciones_mapa_tabla_fragmento;
 import static inweb.modelos_html.formularios.web_formularios.k_valores_mapa_mensaje_error_tex;
-import static inweb.modelos_html.formularios.web_formularios.k_valores_mapa_style_tex;
+import static inweb.modelos_html.formularios.web_formularios.k_valores_mapa_style_fragmento_tex;
 import static inweb.modelos_html.formularios.web_formularios.k_valores_mapa_url_destino_tex;
 import static inweb.modelos_html.formularios.web_formularios.k_valores_mapa_valor_tex;
+import java.util.AbstractMap.SimpleEntry;
 
 /**
  *
@@ -47,9 +48,11 @@ public class Clab_criptomonedas extends bases {
     public static final String k_retroceder = "retroceder";
     public static final String k_ir = "ir";
     public static final String k_crear = "crear";
+    public static final String k_crear_procesar = "crear_procesar";
     public static final String k_actualizar = "actualizar";
+    public static final String k_actualizar_procesar = "actualizar_procesar";
     public static final String k_borrar = "borrar";
-    public static final String k_insertar = "insertar";
+    public static final String k_borrar_procesar = "borrar_procesar";
     /** 
      * Ruta de los recursos de traducción para este paquete
      */
@@ -76,6 +79,10 @@ public class Clab_criptomonedas extends bases {
     public static String k_paginacion_clave_avanzar = "paginacion_clave_avanzar";
     public static String k_paginacion_clave_ir = "paginacion_clave_ir";
     public static String k_paginacion_clave_fila_num = "paginacion_clave_fila_num";
+    public static String k_insercion_clave_id_criptomoneda_previo = "insercion_clave_id_criptomoneda_previo";
+    public static String k_insercion_clave_tipo_operacion = "insercion_clave_tipo_operacion";
+    public static String k_tipo_operacion_insertar = "tipo_operacion_insertar";
+    public static String k_tipo_operacion_actualizar = "tipo_operacion_actualizar";
     public static String k_insercion_clave_enviar = "insercion_clave_enviar";
     public static String k_insercion_clave_cancelar = "insercion_clave_cancelar";
     public static String k_borrado_clave_fila_num = "borrado_clave_fila_num";
@@ -99,6 +106,11 @@ public class Clab_criptomonedas extends bases {
     public static String k_boton_borrar_tex = "boton_borrar_tex";
     public static String k_clab_criptomonedas_inicio_url = "https://localhost";
     public static String k_clab_criptomonedas_index_html = "/clab_criptomonedas/index_html";
+    public static String k_clab_criptomonedas_cancelar_html = null;
+    public static String k_fragmentos_principales_ruta = "/re/templates/formularios/fragmentos/fragmentos_principales.html";
+    public static String k_fragmentos_clab_criptomonedas_ruta = "/re/templates/clab_criptomonedas/fragmentos/fragmentos_clab_criptomonedas.html";
+    public static String k_clave_index = "index";
+    public static String k_formulario_tex = "formulario_tex";
     public String url;
     public String driver;
     public String conexion;
@@ -150,30 +162,6 @@ public class Clab_criptomonedas extends bases {
     public control_entradas paginacion_crear_boton_control_entrada = new control_entradas();
     public web_formularios borrado_web_formulario = new web_formularios();
     public control_entradas borrado_control_entrada_confirmar = new control_entradas();
-    public control_entradas borrado_control_entrada = new control_entradas() {
-        @Override
-        public boolean _validar_numero(Object objeto_a_validar, oks ok, Object... extras_array) throws Exception {
-            if (ok.es == false) { return false; }
-            ResourceBundle in;
-            Double doble;
-            int min = 1;
-            int max = Integer.parseInt(select_pagina_tam);
-            try {
-                doble = Double.valueOf(objeto_a_validar.toString());
-                int num = doble.intValue();
-                if (num >= min && num <= max) {
-                    return true;
-                } else {
-                    in = ResourceBundles.getBundle(k_in_ruta);
-                    ok.setTxt(tr.in(in, "El valor debe estar entre " + min + " y " + max));
-                }
-            } catch (Exception e) {
-                in = ResourceBundles.getBundle(k_in_ruta);
-                ok.setTxt(tr.in(in, "El valor debe estar entre " + min + " y " + max));
-            }
-            return ok.es;
-        }        
-    };
     public web_formularios insercion_web_formulario = new web_formularios() {        
         @Override
         public boolean importar_valores(List<Entry<String, Object>> clave_valor_lista, oks ok, Object ... extras_array) throws Exception {
@@ -198,9 +186,11 @@ public class Clab_criptomonedas extends bases {
                 if (ok.es == false) { return false; }
                 _controles_lista.get(8).importar_captura(clave_valor_lista.get(8).getValue(), ok);
                 if (ok.es == false) { return false; }
-                _controles_lista.get(9).importar_captura(clave_valor_lista.get(10).getValue(), ok);
+                _controles_lista.get(9).importar_captura(clave_valor_lista.get(9).getValue(), ok);
                 if (ok.es == false) { return false; }
-                _controles_lista.get(10).importar_captura(clave_valor_lista.get(11).getValue(), ok);
+                _controles_lista.get(10).importar_captura(clave_valor_lista.get(10).getValue(), ok);
+                if (ok.es == false) { return false; }
+                fila_inicio_pagina = Long.valueOf(clave_valor_lista.get(10).getValue().toString());
                 if (ok.es == false) { return false; }
             } catch (Exception e) {
                 throw e;
@@ -208,42 +198,24 @@ public class Clab_criptomonedas extends bases {
             return ok.es;
         }
     };
-    public web_formularios actualizado_web_formulario = new web_formularios();
-    public control_entradas actualizado_control_entrada = new control_entradas() {
-        @Override
-        public boolean _validar_numero(Object objeto_a_validar, oks ok, Object... extras_array) throws Exception {
-            if (ok.es == false) { return false; }
-            ResourceBundle in;
-            Double doble;
-            int min = 1;
-            int max = Integer.parseInt(select_pagina_tam);
-            try {
-                doble = Double.valueOf(objeto_a_validar.toString());
-                int num = doble.intValue();
-                if (num >= min && num <= max) {
-                    return true;
-                } else {
-                    in = ResourceBundles.getBundle(k_in_ruta);
-                    ok.setTxt(tr.in(in, "El valor debe estar entre " + min + " y " + max));
-                }
-            } catch (Exception e) {
-                in = ResourceBundles.getBundle(k_in_ruta);
-                ok.setTxt(tr.in(in, "El valor debe estar entre " + min + " y " + max));
-            }
-            return ok.es;
-        }        
-    };
     public Long fila_inicio_pagina = 0L;
+    public web_formularios index = new web_formularios();
+    public Map <String, String> index_valores_mapa = new HashMap<>();
+
+    public Clab_criptomonedas() {
+        k_clab_criptomonedas_cancelar_html = "?" + k_paginacion_clave_ir + "=&" + k_paginacion_clave_fila_num + "=0";
+    }
     /**
      * Inicio de la aplicación desde un objeto instanciado
      * @param operacion_tex
+     * @param id_criptomoneda Para las operaciones de borrar y actualizar
      * @param formulario_claves_valor_lista datos recibidos del formulario
      * @param ok Comunicar resultados
      * @param extras_array Opción de añadir parámetros en el futuro.
      * @return 
      * @throws Exception Opción de notificar errores de excepción
      */
-    public String procesar_lectura_formulario(String operacion_tex, List<Entry<String, Object>> formulario_claves_valor_lista, oks ok, Object ... extras_array) throws Exception {
+    public String procesar_clab_formularios(String operacion_tex, String id_criptomoneda, List<Entry<String, Object>> formulario_claves_valor_lista, oks ok, Object ... extras_array) throws Exception {
         String texto_html = null;
         try {
             if (ok.es == false) { return null; }
@@ -255,6 +227,16 @@ public class Clab_criptomonedas extends bases {
                     fila_inicio_pagina = Long.valueOf(entry.getValue().toString());
                     fila_inicio_pagina = fila_inicio_pagina - 1;
                     break;
+                }
+            }
+            if (operacion_tex.equals(k_crear_procesar)) {
+                for (Entry<String, Object> entry : formulario_claves_valor_lista) {
+                    if (entry.getKey().equals(k_insercion_clave_tipo_operacion)) {
+                        if (entry.getValue().toString().equals(k_tipo_operacion_actualizar)) {
+                            operacion_tex = k_actualizar_procesar;
+                        }
+                        break;
+                    }
                 }
             }
             filas_cuenta = leer_cuenta_filas_criptomonedas(ok);
@@ -277,6 +259,7 @@ public class Clab_criptomonedas extends bases {
                         fila_inicio_pagina = fila_inicio_pagina + pagina_tam;
                     }
                 } 
+                capturar_lecturas_web_formulario(fila_inicio_pagina, filas_cuenta, ok);
                 if (ok.es == false) { return null; }
                 texto_html = lectura_web_formulario.getContenido_formulario_html();
             }
@@ -287,54 +270,83 @@ public class Clab_criptomonedas extends bases {
                     escribir_error(lectura_web_formulario, tr.in(in, "El valor debe estar entre ") + 1 
                     + tr.in(in, " y ") + filas_cuenta, ok);
                 }
+                capturar_lecturas_web_formulario(fila_inicio_pagina, filas_cuenta, ok);
                 if (ok.es == false) { return null; }
                 texto_html = lectura_web_formulario.getContenido_formulario_html();
             }
             case k_crear -> {
-                capturar_inserciones_web_formulario(ok);
+                capturar_creacion_web_formulario(id_criptomoneda, ok);
                 if (ok.es == false) { return null; }
                 texto_html = insercion_web_formulario.getContenido_formulario_html();
             }
+            case k_crear_procesar -> {
+                insercion_web_formulario.importar_valores(formulario_claves_valor_lista, ok, extras_array);
+                if (ok.es == false) { return null; }
+                insercion_web_formulario.procesar(ok, extras_array);
+                if (ok.es == false) { 
+                    texto_html = insercion_web_formulario.getContenido_formulario_html();
+                } else {
+                    String error_tex = lectura_web_formulario.valores_mapa.get(k_valores_mapa_mensaje_error_tex);
+                    if (error_tex.isEmpty()) {
+                        in = ResourceBundles.getBundle(k_in_ruta);
+                        error_tex = tr.in(in, "Operativa completada con éxito. ");
+                        lectura_web_formulario.valores_mapa.put(k_valores_mapa_mensaje_error_tex, error_tex);
+                        LinkedList<Object> valores_lista = new LinkedList<>();
+                        for (Entry<String, Object> entry : formulario_claves_valor_lista) {
+                            if (entry.getValue() == null) {
+                                valores_lista.add(null);
+                            } else if (entry.getValue().toString().isBlank()) {
+                                valores_lista.add(null);
+                            } else {
+                                valores_lista.add(entry.getValue());
+                            }
+                        }
+                        crear_fila(valores_lista, ok);
+                        if (ok.es == false) { break; }
+                        capturar_lecturas_web_formulario(fila_inicio_pagina, filas_cuenta, ok);
+                        if (ok.es == false) { return null; }
+                        texto_html = lectura_web_formulario.getContenido_formulario_html();
+                    } else {
+                        texto_html = insercion_web_formulario.getContenido_formulario_html();
+                    }
+                }
+            }
             case k_actualizar -> {
-//                actualizado_web_formulario.procesar(ok, extras_array);
-//                if (ok.es == false) { break; }
-//                if (lectura_web_formulario._es_cancelar) {
-//                    ok.setTxt(tr.in(in, "Cancelado. "));
-//                    break;
-//                }
-//                Double doble = (Double) actualizado_control_entrada.valor_de_conversion;
-//                int fila_num = doble.intValue() - 1; // Quitar la cabecera de la tabla
-//                LinkedHashMap<String, Object> columnas_mapa;
-//                columnas_mapa = lecturas_lista.get(fila_num);
-//                List<Entry<String, Object>> entrys_lista = new LinkedList<>();
-//                for (Entry<String, Object> entry: columnas_mapa.entrySet()) {
-//                    entrys_lista.add(entry);
-//                }
-//                Entry<String, Object> extra_entry = new SimpleEntry<>(k_insercion_clave_revisar, 1);
-//                entrys_lista.add(extra_entry);
-//                extra_entry = new SimpleEntry<>(k_insercion_clave_enviar, 0);
-//                entrys_lista.add(extra_entry);
-//                if (ok.es == false) { break; }
-//                insercion_web_formulario.importar_valores(entrys_lista, ok, extras_array);
-//                if (ok.es == false) { break; }
-//                insercion_web_formulario.procesar(ok, extras_array);
-//                if (ok.es == false) { break; }
-//                if (insercion_web_formulario._es_terminar) {                                
-//                    entrys_lista = insercion_web_formulario.exportar_valores(ok, extras_array);
-//                    if (ok.es == false) { break; }
-//                    LinkedList<Object> valores_lista = new LinkedList<>();
-//                    for (Entry<String, Object> entry : entrys_lista) {
-//                        if (entry.getValue() == null) {
-//                            valores_lista.add(null);
-//                        } else if (entry.getValue().toString().isBlank()) {
-//                            valores_lista.add(null);
-//                        } else {
-//                            valores_lista.add(entry.getValue());
-//                        }
-//                    }
-//                    actualizar_fila(valores_lista, fila_num, ok);
-//                    if (ok.es == false) { break; }
-//                }
+                capturar_actualizacion_web_formulario(id_criptomoneda, ok);
+                if (ok.es == false) { return null; }
+                texto_html = insercion_web_formulario.getContenido_formulario_html();
+            }
+            case k_actualizar_procesar -> {
+                insercion_web_formulario.importar_valores(formulario_claves_valor_lista, ok, extras_array);
+                if (ok.es == false) { return null; }
+                insercion_web_formulario.procesar(ok, extras_array);
+                if (ok.es == false) { 
+                    texto_html = insercion_web_formulario.getContenido_formulario_html();
+                } else {
+                    String error_tex = lectura_web_formulario.valores_mapa.get(k_valores_mapa_mensaje_error_tex);
+                    if (error_tex.isEmpty()) {
+                        in = ResourceBundles.getBundle(k_in_ruta);
+                        error_tex = tr.in(in, "Operativa completada con éxito. ");
+                        lectura_web_formulario.valores_mapa.put(k_valores_mapa_mensaje_error_tex, error_tex);
+                        LinkedList<Object> valores_lista = new LinkedList<>();
+                        for (Entry<String, Object> entry : formulario_claves_valor_lista) {
+                            if (entry.getValue() == null) {
+                                valores_lista.add(null);
+                            } else if (entry.getValue().toString().isBlank()) {
+                                valores_lista.add(null);
+                            } else {
+                                valores_lista.add(entry.getValue());
+                            }
+                        }
+                        crear_fila(valores_lista, ok);
+                        if (ok.es == false) { break; }
+                        capturar_lecturas_web_formulario(fila_inicio_pagina, filas_cuenta, ok);
+                        if (ok.es == false) { return null; }
+                        texto_html = lectura_web_formulario.getContenido_formulario_html();
+                    } else {
+                        texto_html = insercion_web_formulario.getContenido_formulario_html();
+                    }
+                }
             }
             case k_borrar -> {
 //                borrado_web_formulario.procesar(ok, extras_array);
@@ -349,7 +361,8 @@ public class Clab_criptomonedas extends bases {
             }
             default -> {
                 escribir_linea_error(tr.in(in, "Opción no válida. "), ok, extras_array);
-            }}
+            }
+}
             return texto_html;
         } catch (Exception e) {
             throw e;
@@ -377,10 +390,10 @@ public class Clab_criptomonedas extends bases {
             opciones_mapa.put(k_control_tablas_opciones_mapa_tabla_fila_fragmento, k_opciones_mapa_nombre_fragmento_control_tablas_fila_criptomonedas);
             lectura_control_tabla.poner_en_formulario(lectura_web_formulario, k_lectura_clave_tabla, valores_mapa, tr.in(in, "Tabla de criptomonedas "), opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
-            valores_mapa.put(k_valores_mapa_style_tex, "display:inline-block;height:28px;margin-top:5px;margin-bottom:5px;");
-            valores_mapa.put(k_valores_mapa_style_texto_tex, valores_mapa.get(k_valores_mapa_style_tex));
-            valores_mapa.put(k_valores_mapa_style_submit_tex, valores_mapa.get(k_valores_mapa_style_tex));
-            valores_mapa.put(k_valores_mapa_style_reset_tex, valores_mapa.get(k_valores_mapa_style_tex));
+            valores_mapa.put(k_valores_mapa_style_fragmento_tex, "display:inline-block");
+            valores_mapa.put(k_valores_mapa_style_fragmento_texto_tex, "display:inline-block");
+            valores_mapa.put(k_valores_mapa_style_fragmento_submit_tex, "display:inline-block");
+            valores_mapa.put(k_valores_mapa_style_fragmento_reset_tex, "display:inline-block");
             paginacion_retroceder_boton_control_entrada.iniciar(k_entradas_tipo_submit, ok);
             if (ok.es == false) { return ok.es; }
             paginacion_retroceder_boton_control_entrada.poner_en_formulario(lectura_web_formulario, k_paginacion_clave_retroceder
@@ -424,11 +437,6 @@ public class Clab_criptomonedas extends bases {
         ResourceBundle in = null;
         try {
             in = ResourceBundles.getBundle(k_in_ruta);
-            borrado_control_entrada.iniciar(k_entradas_tipo_numero, ok);
-            if (ok.es == false) { return ok.es; }
-            borrado_control_entrada.poner_en_formulario(borrado_web_formulario, k_borrado_clave_fila_num
-            , null, tr.in(in, "¿Número de fila que borrar? "), null, ok);
-            if (ok.es == false) { return ok.es; }
             borrado_control_entrada_confirmar.iniciar(k_entradas_tipo_submit, ok);
             if (ok.es == false) { return ok.es; }
             borrado_control_entrada_confirmar.poner_en_formulario(borrado_web_formulario, k_borrado_clave_confirmar
@@ -460,11 +468,18 @@ public class Clab_criptomonedas extends bases {
             control_entradas insercion_aporte_maximo_control_entrada = new control_entradas();
             control_entradas insercion_dominancia_control_entrada = new control_entradas();
             control_entradas insercion_total_valor_bloqueado_control_entrada = new control_entradas();
-            control_entradas insercion_revisar_control_entrada = new control_entradas();
-            control_entradas insercion_enviar_control_entrada = new control_entradas();
-            control_entradas insercion_cancelar_control_entrada = new control_entradas();
+            control_entradas insercion_id_criptomoneda_previo_control_entrada = new control_entradas();
             control_entradas insercion_fila_num_control_entrada = new control_entradas();
-            String [] columnas_array = select_columnas_cabecera_tex.split(",");
+            control_entradas insercion_tipo_operacion_control_entrada = new control_entradas();
+            control_entradas insercion_enviar_control_entrada = new control_entradas();
+            control_entradas insercion_cancelar_control_entrada = new control_redirecciones();
+            Map<String, String> valores_mapa = new HashMap<>();
+            valores_mapa.put(k_valores_mapa_style_fragmento_submit_tex, "display:inline-block;width:50%;");
+            valores_mapa.put(k_valores_mapa_style_fragmento_cancelar_tex, "display:inline-block;width:50%;");
+            valores_mapa.put(k_valores_mapa_url_destino_tex
+            , k_clab_criptomonedas_inicio_url + k_clab_criptomonedas_index_html + k_clab_criptomonedas_cancelar_html);
+            String [] columnas_array = select_columnas_tex.split(",");
+            String [] columnas_captura_array = select_columnas_cabecera_tex.split(",");
             insercion_id_criptomoneda_control_entrada.iniciar(k_entradas_tipo_texto, ok);
             if (ok.es == false) { return ok.es; }
             insercion_simbolo_control_entrada.iniciar(k_entradas_tipo_texto, ok);
@@ -483,51 +498,59 @@ public class Clab_criptomonedas extends bases {
             if (ok.es == false) { return ok.es; }
             insercion_total_valor_bloqueado_control_entrada.iniciar(k_entradas_tipo_numero, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_revisar_control_entrada.iniciar(k_entradas_tipo_reset, ok);
+            insercion_id_criptomoneda_previo_control_entrada.iniciar(k_entradas_tipo_hidden, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_fila_num_control_entrada.iniciar(k_entradas_tipo_hidden, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_tipo_operacion_control_entrada.iniciar(k_entradas_tipo_hidden, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_cancelar_control_entrada.iniciar(k_entradas_tipo_boton, ok);
             if (ok.es == false) { return ok.es; }
             insercion_enviar_control_entrada.iniciar(k_entradas_tipo_submit, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_cancelar_control_entrada.iniciar(k_entradas_tipo_submit, ok);
+            insercion_id_criptomoneda_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[0].trim()
+            , null, columnas_captura_array[0], null, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_enviar_control_entrada.iniciar(k_entradas_tipo_hidden, ok);
+            insercion_simbolo_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[1].trim()
+            , null, columnas_captura_array[1], null, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_id_criptomoneda_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[0]
-            , null, columnas_array[0], null, ok);
+            insercion_capitalizacion_de_mercado_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[2].trim()
+            , null, columnas_captura_array[2], null, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_simbolo_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[1]
-            , null, columnas_array[1], null, ok);
-            if (ok.es == false) { return ok.es; }
-            insercion_capitalizacion_de_mercado_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[2]
-            , null, columnas_array[2], null, ok);
-            if (ok.es == false) { return ok.es; }
-            insercion_aporte_circulante_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[3]
-            , null, columnas_array[3], null, ok);
+            insercion_aporte_circulante_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[3].trim()
+            , null, columnas_captura_array[3], null, ok);
             if (ok.es == false) { return ok.es; }
             Map<String, Object> opciones_mapa = new HashMap<>();
             opciones_mapa.put(k_opciones_mapa_no_requerido, "");
-            insercion_capitalizacion_total_diluida_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[4]
-            , null, columnas_array[4], opciones_mapa, ok);
+            insercion_capitalizacion_total_diluida_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[4].trim()
+            , null, columnas_captura_array[4], opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_aporte_total_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[5]
-            , null, columnas_array[5], opciones_mapa, ok);
+            insercion_aporte_total_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[5].trim()
+            , null, columnas_captura_array[5], opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_aporte_maximo_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[6]
-            , null, columnas_array[6], opciones_mapa, ok);
+            insercion_aporte_maximo_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[6].trim()
+            , null, columnas_captura_array[6], opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_dominancia_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[7]
-            , null, columnas_array[7], null, ok);
+            insercion_dominancia_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[7].trim()
+            , null, columnas_captura_array[7], null, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_total_valor_bloqueado_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[8]
-            , null, columnas_array[8], opciones_mapa, ok);
+            insercion_total_valor_bloqueado_control_entrada.poner_en_formulario(insercion_web_formulario, columnas_array[8].trim()
+            , null, columnas_captura_array[8], opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
-            insercion_enviar_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_enviar
-            , null, tr.in(in, "Enviar"), null, ok);
-            if (ok.es == false) { return ok.es; }
-            insercion_cancelar_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_cancelar
-            , null, tr.in(in, "Cancelar"), null, ok);
+            insercion_id_criptomoneda_previo_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_id_criptomoneda_previo
+            , null, null, null, ok);
             if (ok.es == false) { return ok.es; }
             insercion_fila_num_control_entrada.poner_en_formulario(insercion_web_formulario, k_paginacion_clave_fila_num
             , null, null, null, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_tipo_operacion_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_tipo_operacion
+            , null, null, null, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_cancelar_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_cancelar
+            , valores_mapa, tr.in(in, "Cancelar"), null, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_enviar_control_entrada.poner_en_formulario(insercion_web_formulario, k_insercion_clave_enviar
+            , valores_mapa, tr.in(in, "Enviar"), null, ok);
             if (ok.es == false) { return ok.es; }
         } catch (Exception e) {
             throw e;
@@ -825,23 +848,113 @@ public class Clab_criptomonedas extends bases {
         return ok.es;
     }
     /**
-     * 
+     * Obtiene el código HTML de captura para la creación
+     * @param id_criptomoneda
      * @param ok
      * @param extra_array
      * @return
      * @throws Exception 
      */
     @SuppressWarnings("unchecked")
-    public boolean capturar_inserciones_web_formulario(oks ok, Object... extra_array) throws Exception {
+    public boolean capturar_creacion_web_formulario(String id_criptomoneda, oks ok, Object... extra_array) throws Exception {
         ResourceBundle in;
         try {
             if (ok.es == false) { return ok.es; }
+            LinkedHashMap<String, Object> fila_encontrada_mapa = null;
+            for (LinkedHashMap<String, Object> columnas_mapa : lecturas_lista) {
+                fila_encontrada_mapa = columnas_mapa;
+                break;
+            }
+            List<Entry<String, Object>> clave_valor_lista = new LinkedList<>();
+            Entry<String, Object> entry;
+            int i = 0;
+            int tam = fila_encontrada_mapa.size() - 1; // No se usa la última columna
+            for (Entry<String, Object> columna_entry : fila_encontrada_mapa.entrySet()) {
+                if (i >= tam) {
+                    break;
+                }
+                entry = new SimpleEntry<>(columna_entry.getKey(), "");
+                clave_valor_lista.add(entry);
+                i = i + 1;
+            }
+            entry = new SimpleEntry<>(k_insercion_clave_id_criptomoneda_previo, "");
+            clave_valor_lista.add(entry);
+            entry = new SimpleEntry<>(k_paginacion_clave_fila_num, String.valueOf(fila_inicio_pagina));
+            clave_valor_lista.add(entry);
+            insercion_web_formulario.importar_valores(clave_valor_lista, ok, extra_array);
+            if (ok.es == false) { return ok.es; }
             List<Entry<String, Object>> index_claves_valor_lista = insercion_web_formulario.exportar_valores(k_paginacion_clave_fila_num, ok, extra_array);
             if (ok.es == false) { return ok.es; }
-            Entry<String, Object> entry = index_claves_valor_lista.get(0);
-            Map<String, String> valores_mapa = (Map<String, String>) entry.getValue();
+            Entry<String, Object> clave_valor_mapa = index_claves_valor_lista.get(0);
+            Map<String, String> valores_mapa = (Map<String, String>) clave_valor_mapa.getValue();
             valores_mapa.put(k_valores_mapa_valor_tex, String.valueOf(fila_inicio_pagina));
-            insercion_web_formulario.importar_valores(k_paginacion_clave_fila_num, index_claves_valor_lista, ok, extra_array);
+            index_claves_valor_lista = insercion_web_formulario.exportar_valores(k_insercion_clave_tipo_operacion, ok, extra_array);
+            if (ok.es == false) { return ok.es; }
+            clave_valor_mapa = index_claves_valor_lista.get(0);
+            valores_mapa = (Map<String, String>) clave_valor_mapa.getValue();
+            valores_mapa.put(k_valores_mapa_valor_tex, k_tipo_operacion_insertar);
+            valores_mapa = new HashMap<>();
+            valores_mapa.put(k_valores_mapa_url_destino_tex, k_clab_criptomonedas_inicio_url + k_clab_criptomonedas_index_html);
+            insercion_web_formulario.iniciar(k_fragmentos_principales_ruta, valores_mapa, null, ok);
+            if (ok.es == false) { return ok.es; }
+            insercion_web_formulario.capturar(ok);
+            if (ok.es == false) { return ok.es; }
+        } catch (Exception e) {
+            ok.setTxt(e);
+        }
+        return ok.es;
+    }
+    /**
+     * Obtiene el código HTML de captura para la actualizacion
+     * @param id_criptomoneda
+     * @param ok
+     * @param extra_array
+     * @return
+     * @throws Exception 
+     */
+    @SuppressWarnings("unchecked")
+    public boolean capturar_actualizacion_web_formulario(String id_criptomoneda, oks ok, Object... extra_array) throws Exception {
+        ResourceBundle in;
+        try {
+            if (ok.es == false) { return ok.es; }
+            String id_criptomoneda_columna = null;
+            LinkedHashMap<String, Object> fila_encontrada_mapa = null;
+            for (LinkedHashMap<String, Object> columnas_mapa : lecturas_lista) {
+                for (Entry<String, Object> entry : columnas_mapa.entrySet()) {
+                    id_criptomoneda_columna = (String) entry.getValue();
+                    break;
+                }
+                if (id_criptomoneda_columna.equals(id_criptomoneda)) {
+                    fila_encontrada_mapa = columnas_mapa;
+                    break;
+                }
+            }
+            List<Entry<String, Object>> clave_valor_lista = new LinkedList<>();
+            Entry<String, Object> entry;
+            int i = 0;
+            int tam = fila_encontrada_mapa.size() - 1; // No se usa la última columna
+            for (Entry<String, Object> columna_entry : fila_encontrada_mapa.entrySet()) {
+                if (i >= tam) {
+                    break;
+                }
+                entry = new SimpleEntry<>(columna_entry.getKey(), columna_entry.getValue());
+                clave_valor_lista.add(entry);
+                i = i + 1;
+            }
+            entry = new SimpleEntry<>(k_insercion_clave_id_criptomoneda_previo, String.valueOf(id_criptomoneda));
+            clave_valor_lista.add(entry);
+            entry = new SimpleEntry<>(k_paginacion_clave_fila_num, String.valueOf(fila_inicio_pagina));
+            clave_valor_lista.add(entry);
+            insercion_web_formulario.importar_valores(clave_valor_lista, ok, extra_array);
+            if (ok.es == false) { return ok.es; }
+            List<Entry<String,Object>> index_claves_valor_lista = insercion_web_formulario.exportar_valores(k_insercion_clave_tipo_operacion, ok, extra_array);
+            if (ok.es == false) { return ok.es; }
+            Entry<String,Object> clave_valor_mapa = index_claves_valor_lista.get(0);
+            Map<String, String> valores_mapa = (Map<String, String>) clave_valor_mapa.getValue();
+            valores_mapa.put(k_valores_mapa_valor_tex, k_tipo_operacion_actualizar);
+            valores_mapa = new HashMap<>();
+            valores_mapa.put(k_valores_mapa_url_destino_tex, k_clab_criptomonedas_inicio_url + k_clab_criptomonedas_index_html);
+            insercion_web_formulario.iniciar(k_fragmentos_principales_ruta, valores_mapa, null, ok);
             if (ok.es == false) { return ok.es; }
             insercion_web_formulario.capturar(ok);
             if (ok.es == false) { return ok.es; }
@@ -877,6 +990,72 @@ public class Clab_criptomonedas extends bases {
         if (ok.es == false) { return ok.es; }
         formulario.getValores_mapa().put(k_valores_mapa_mensaje_error_tex, mensaje);
         return ok.es;
+    }
+    /**
+     * Procesa los datos recibidos de una petición HTTP/S Get
+     * @param datos_mapa
+     * @param ok
+     * @param extras_array
+     * @return
+     * @throws Exception 
+     */
+    public String procesar_formulario(Map<String, String> datos_mapa, oks ok, Object ... extras_array) throws Exception {
+        ResourceBundle in;
+        String texto_html = null;
+        try {
+            if (ok.es == false) { return null; }
+            in = ResourceBundles.getBundle(k_in_ruta);
+            String operacion_tex = null;
+            String clave_entry, valor_entry;
+            List<Entry<String, Object>> formulario_claves_valor_lista = new LinkedList<>();
+            Map.Entry<String, Object> nueva_entrada;
+            String id_criptomoneda = null;
+            for(Entry<String, String> entry: datos_mapa.entrySet()) {
+                clave_entry = entry.getKey();
+                if (clave_entry.equals(Clab_criptomonedas.k_paginacion_clave_retroceder)) {
+                    operacion_tex = k_retroceder;
+                } else if (clave_entry.equals(Clab_criptomonedas.k_paginacion_clave_avanzar)) {
+                    operacion_tex = k_avanzar;
+                } else if (clave_entry.equals(Clab_criptomonedas.k_paginacion_clave_ir)) {
+                    operacion_tex = k_ir;
+                } else if (clave_entry.equals(Clab_criptomonedas.k_lectura_clave_crear)) {
+                    operacion_tex = k_crear;
+                } else if (clave_entry.startsWith(Clab_criptomonedas.k_lectura_clave_actualizar)) {
+                    id_criptomoneda = clave_entry.substring(k_lectura_clave_actualizar.length());
+                    operacion_tex = k_actualizar;
+                } else if (clave_entry.startsWith(Clab_criptomonedas.k_lectura_clave_borrar)) {
+                    id_criptomoneda = clave_entry.substring(k_lectura_clave_borrar.length());
+                    operacion_tex = k_borrar;
+                } else if (clave_entry.equals(Clab_criptomonedas.k_insercion_clave_enviar)) {
+                    operacion_tex = k_crear_procesar;
+                } else if (clave_entry.equals(Clab_criptomonedas.k_insercion_clave_cancelar)) {
+                    operacion_tex = k_ir;
+                }
+                valor_entry = entry.getValue();
+                clave_entry = clave_entry.replaceAll("^\\.+\\[\\s*\\d+\\s*\\]$", "");
+                nueva_entrada = new SimpleEntry<>(clave_entry, valor_entry);
+                formulario_claves_valor_lista.add(nueva_entrada);
+            }
+            texto_html = procesar_clab_formularios(operacion_tex, id_criptomoneda, formulario_claves_valor_lista, ok);
+            if (ok.es == false) { return null; }
+//                if (ok.es == false) { return ok.es; }
+//                capturar_formulario_simple(formulario_simple.getValores_mapa(), ok);
+//                if (ok.es == false) { return ok.es; }
+//                List<Entry<String, Object>> index_claves_valor_lista;
+//                index_claves_valor_lista = index.exportar_valores(k_clave_index, ok, extras_array);
+//                if (ok.es == false) { return ok.es; }
+//                nueva_entrada = index_claves_valor_lista.get(0);
+//                @SuppressWarnings("unchecked")
+//                Map<String, String> valores_mapa = (Map<String, String>) nueva_entrada.getValue();
+//                valores_mapa.put(k_formulario_tex, formulario_simple.getContenido_formulario_html());
+//                index.importar_valores(k_clave_index, index_claves_valor_lista, ok, extras_array);
+//                capturar_formulario_index(index_valores_mapa, ok);
+//                if (ok.es == false) { return ok.es; }
+        } catch (Exception e) {
+            ok.setTxt(e);
+            texto_html = null;
+        }
+        return texto_html;
     }
 
 }

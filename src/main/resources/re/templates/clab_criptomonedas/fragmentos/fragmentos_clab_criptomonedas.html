@@ -22,8 +22,8 @@
 </div>
 <tr th:fragment="control_tablas_fila_criptomonedas">
     <td style="border:1px solid;border-color:black; padding:2px;">
-        <input type="button" id="actualizar_${id_criptomoneda}" name="actualizar.${id_criptomoneda}" value="${boton_actualizar_tex}" style="display:inline-block;background: darkseagreen;"/>
-        <input type="button" id="borrar_${id_criptomoneda}" name="borrar.${id_criptomoneda}" value="${boton_borrar_tex}" style="display:inline-block;background: indianred;"/>
+        <input type="submit" id="actualizar_${id_criptomoneda}" name="actualizar.${id_criptomoneda}" value="${boton_actualizar_tex}" style="display:inline-block;background: darkseagreen;"/>
+        <input type="submit" id="borrar_${id_criptomoneda}" name="borrar.${id_criptomoneda}" value="${boton_borrar_tex}" style="display:inline-block;background: indianred;"/>
     </td>
     <td style="border:1px solid;border-color:black;padding:2px;" th:utext="${id_criptomoneda}"></td>
     <td style="border:1px solid;border-color:black;padding:2px;" th:utext="${simbolo}"></td>

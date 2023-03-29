@@ -1,9 +1,5 @@
 package ingui.javafx.clab_criptomonedas_navegador_web;
 
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_actualizar;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_avanzar;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_borrar;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_cancelar_insertar;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_delete;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_index_html;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_insert;
@@ -19,10 +15,8 @@ import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_select_count;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_select_pagina_tam;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_update;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_crear;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_insertar;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_ir;
-import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_retroceder;
+import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clave_index;
+import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_formulario_tex;
 import ingui.javafx.navegador_web.Navegador_web;
 import innui.modelos.comunicaciones.url.urls;
 import innui.modelos.configuraciones.ResourceBundles;
@@ -32,20 +26,16 @@ import innui.modelos.errores.oks;
 import innui.modelos.internacionalizacion.tr;
 import innui.modelos.modelos;
 import innui.modelos.modelos_comunicaciones.modelos_comunicaciones;
-import inweb.modelos_html.formularios.web_formularios;
 import static inweb.modelos_html.formularios.web_formularios.k_nombre_fragmento;
 import inweb.modelos_html.modelos_html;
 import java.io.InputStream;
 import static java.lang.System.err;
 import static java.lang.System.exit;
 import java.net.URL;
-import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
@@ -61,18 +51,12 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
     public static String k_imagen_cabecera_ruta = "/re/static/ingui.javafx.clab_criptomonedas_navegador_web.cripto_y_mas.png";
     public static String k_index_ruta = "/re/templates/clab_criptomonedas/index.html";
     public static String k_opciones_mapa_nombre_fragmento_html = "html";
-    public static String k_clave_index = "index";
     public static String k_titulo_tex = "titulo_tex";
     public static String k_mensaje_imagen_tex = "mensaje_imagen_tex";
     public static String k_imagen_ruta_tex = "imagen_ruta_tex";
     public static String k_mensaje_cabecera_tex = "mensaje_cabecera_tex";
-    public static String k_formulario_tex = "formulario_tex";
-    public static String k_fragmentos_principales_ruta = "/re/templates/formularios/fragmentos/fragmentos_principales.html";
-    public static String k_fragmentos_clab_criptomonedas_ruta = "/re/templates/clab_criptomonedas/fragmentos/fragmentos_clab_criptomonedas.html";
-    public web_formularios index = new web_formularios();
-    public Map <String, String> index_valores_mapa = new HashMap<>();
     public Map <String, Object> lecturas_web_formulario_opciones_mapa = new HashMap<>();   
-    public Clab_criptomonedas clab_criptomonedas = new Clab_criptomonedas();
+    public Clab_criptomonedas clab_criptomoneda = new Clab_criptomonedas();
     public iniciales inicial = new iniciales () {
         @Override
         public boolean run(oks ok, Object... extra_array) throws Exception {
@@ -175,19 +159,19 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
             while (true) {
                 configurar(ok);
                 if (ok.es == false) { break; }
-                clab_criptomonedas.crear_formulario_lectura(ok);
+                clab_criptomoneda.crear_formulario_lectura(ok);
                 if (ok.es == false) { break; }
-                clab_criptomonedas.crear_formulario_insercion(ok);
+                clab_criptomoneda.crear_formulario_insercion(ok);
                 if (ok.es == false) { break; }
-                clab_criptomonedas.crear_formulario_borrado(ok);
+                clab_criptomoneda.crear_formulario_borrado(ok);
                 if (ok.es == false) { break; }
-                Long filas_cuenta = clab_criptomonedas.leer_cuenta_filas_criptomonedas(ok);
+                Long filas_cuenta = clab_criptomoneda.leer_cuenta_filas_criptomonedas(ok);
                 if (ok.es == false) { return false; }
-                clab_criptomonedas.capturar_lecturas_web_formulario(0, filas_cuenta, ok);
+                clab_criptomoneda.capturar_lecturas_web_formulario(0, filas_cuenta, ok);
                 if (ok.es == false) { break; }
                 construir_formulario_index(ok);
                 if (ok.es == false) { break; }
-                capturar_formulario_index(index_valores_mapa, ok);
+                capturar_formulario_index(clab_criptomoneda.index_valores_mapa, ok);
                 break;
             }
             oks ok_fin = new oks();
@@ -228,20 +212,20 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
         in = ResourceBundles.getBundle(k_in_ruta);
         try {
             if (ok.es == false) { return ok.es; }
-            index.iniciar(k_index_ruta, index_valores_mapa, null, ok);
+            clab_criptomoneda.index.iniciar(k_index_ruta, clab_criptomoneda.index_valores_mapa, null, ok);
             if (ok.es == false) { return ok.es; }
             lecturas_web_formulario_opciones_mapa.put(k_nombre_fragmento, k_opciones_mapa_nombre_fragmento_html);
-            index_valores_mapa.clear();
-            index_valores_mapa.put(k_titulo_tex, tr.in(in, "CLAB Criptomonedas navegador web"));
-            index_valores_mapa.put(k_mensaje_imagen_tex, k_imagen_cabecera_ruta);
+            clab_criptomoneda.index_valores_mapa.clear();
+            clab_criptomoneda.index_valores_mapa.put(k_titulo_tex, tr.in(in, "CLAB Criptomonedas navegador web"));
+            clab_criptomoneda.index_valores_mapa.put(k_mensaje_imagen_tex, k_imagen_cabecera_ruta);
             URL imagen_url;
             imagen_url = Resources.getResource(k_imagen_cabecera_ruta);
-            index_valores_mapa.put(k_imagen_ruta_tex, "file://" + imagen_url.getPath());
-            index_valores_mapa.put(k_mensaje_cabecera_tex, tr.in(in, "CLAB Criptomonedas navegador web "));
-            index_valores_mapa.put(k_formulario_tex, clab_criptomonedas.lectura_web_formulario.getContenido_formulario_html());
+            clab_criptomoneda.index_valores_mapa.put(k_imagen_ruta_tex, "file://" + imagen_url.getPath());
+            clab_criptomoneda.index_valores_mapa.put(k_mensaje_cabecera_tex, tr.in(in, "CLAB Criptomonedas navegador web"));
+            clab_criptomoneda.index_valores_mapa.put(k_formulario_tex, clab_criptomoneda.lectura_web_formulario.getContenido_formulario_html());
             inweb.modelos_html.formularios.control_textos control_texto = new inweb.modelos_html.formularios.control_textos();
             if (ok.es == false) { return ok.es; }
-            control_texto.poner_en_formulario(index, k_clave_index, index_valores_mapa, null, lecturas_web_formulario_opciones_mapa, ok);
+            control_texto.poner_en_formulario(clab_criptomoneda.index, k_clave_index, clab_criptomoneda.index_valores_mapa, null, lecturas_web_formulario_opciones_mapa, ok);
             if (ok.es == false) { return ok.es; }
         } catch (Exception e) {
             ok.setTxt(e);
@@ -253,11 +237,11 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
         in = ResourceBundles.getBundle(k_in_ruta);
         try {
             if (ok.es == false) { return ok.es; }
-            index.iniciar(k_index_ruta, valores_mapa, null, ok);
+            clab_criptomoneda.index.iniciar(k_index_ruta, valores_mapa, null, ok);
             if (ok.es == false) { return ok.es; }
-            index.capturar(ok);
+            clab_criptomoneda.index.capturar(ok);
             if (ok.es == false) { return ok.es; }
-            webview_simpleController_implementacion.presentar_contenido(index.getContenido_formulario_html(), ok);
+            webview_simpleController_implementacion.presentar_contenido(clab_criptomoneda.index.getContenido_formulario_html(), ok);
         } catch (Exception e) {
             ok.setTxt(e);
         }
@@ -275,135 +259,75 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
     public Boolean procesar_evento_llamada_a_url(URL url, oks ok, Object ... extras_array) throws Exception {
         return procesar_formulario(url, ok, extras_array);
     }
-    
-    public boolean procesar_formulario(URL url, oks ok, Object ... extras_array) throws Exception {
-        ResourceBundle in;
-        try {
-            if (ok.es == false) { return ok.es; }
-            Map<String, String> datos_mapa = new LinkedHashMap<>();
-            if (url.getPath().endsWith(k_clab_criptomonedas_index_html)) {
-                in = ResourceBundles.getBundle(k_in_ruta);
-                String operacion_tex = null;
-                urls.extraer_parametros_query(url, datos_mapa, ok);
-                if (ok.es == false) { return ok.es; }
-                String clave, valor;
-                List<Entry<String, Object>> formulario_claves_valor_lista = new LinkedList<>();
-                Entry<String, Object> nueva_entrada;
-                for(Entry<String, String> entry: datos_mapa.entrySet()) {
-                    clave = entry.getKey();
-                    if (clave.equals(Clab_criptomonedas.k_paginacion_clave_retroceder)) {
-                        operacion_tex = k_retroceder;
-                    } else if (clave.equals(Clab_criptomonedas.k_paginacion_clave_avanzar)) {
-                        operacion_tex = k_avanzar;
-                    } else if (clave.equals(Clab_criptomonedas.k_paginacion_clave_ir)) {
-                        operacion_tex = k_ir;
-                    } else if (clave.equals(Clab_criptomonedas.k_lectura_clave_crear)) {
-                        operacion_tex = k_crear;
-                    } else if (clave.startsWith(Clab_criptomonedas.k_lectura_clave_actualizar)) {
-                        operacion_tex = k_actualizar;
-                    } else if (clave.startsWith(Clab_criptomonedas.k_lectura_clave_borrar)) {
-                        operacion_tex = k_borrar;
-                    } else if (clave.startsWith(Clab_criptomonedas.k_insercion_clave_enviar)) {
-                        operacion_tex = k_insertar;
-                    } else if (clave.startsWith(Clab_criptomonedas.k_insercion_clave_cancelar)) {
-                        operacion_tex = k_ir;
-                    }
-                    valor = entry.getValue();
-                    clave = clave.replaceAll("^\\.+\\[\\s*\\d+\\s*\\]$", "");
-                    nueva_entrada = new SimpleEntry<>(clave, valor);
-                    formulario_claves_valor_lista.add(nueva_entrada);
-                }
-                String texto_html = clab_criptomonedas.procesar_lectura_formulario(operacion_tex, formulario_claves_valor_lista, ok);
-                if (ok.es == false) { return false; }
-                List<Entry<String, Object>> index_claves_valor_lista = index.exportar_valores(k_clave_index, ok, extras_array);
-                nueva_entrada = index_claves_valor_lista.get(0);
-                @SuppressWarnings("unchecked")
-                Map<String, String> valores_mapa = (Map<String, String>) nueva_entrada.getValue();
-                valores_mapa.put(k_formulario_tex, texto_html);
-                index.importar_valores(k_clave_index, index_claves_valor_lista, ok, extras_array);
-                capturar_formulario_index(index_valores_mapa, ok);                
-//                if (ok.es == false) { return ok.es; }
-//                capturar_formulario_simple(formulario_simple.getValores_mapa(), ok);
-//                if (ok.es == false) { return ok.es; }
-//                List<Entry<String, Object>> index_claves_valor_lista;
-//                index_claves_valor_lista = index.exportar_valores(k_clave_index, ok, extras_array);
-//                if (ok.es == false) { return ok.es; }
-//                nueva_entrada = index_claves_valor_lista.get(0);
-//                @SuppressWarnings("unchecked")
-//                Map<String, String> valores_mapa = (Map<String, String>) nueva_entrada.getValue();
-//                valores_mapa.put(k_formulario_tex, formulario_simple.getContenido_formulario_html());
-//                index.importar_valores(k_clave_index, index_claves_valor_lista, ok, extras_array);
-//                capturar_formulario_index(index_valores_mapa, ok);
-//                if (ok.es == false) { return ok.es; }
-            }
-        } catch (Exception e) {
-            ok.setTxt(e);
-        }
-        return ok.es;
-    }
-    
+    /**
+     * Obtiene las propiedades de configuración 
+     * @param ok
+     * @param extra_array
+     * @return
+     * @throws Exception 
+     */
     public boolean configurar(oks ok, Object... extra_array) throws Exception {
         // Terminar clase principal de la librería
         if (ok.es == false) { return ok.es; }
         ResourceBundle in = null;
         try {
             in = ResourceBundles.getBundle(k_in_ruta);
-            clab_criptomonedas.url = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_url);
-            if (clab_criptomonedas.url == null) {
+            clab_criptomoneda.url = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_url);
+            if (clab_criptomoneda.url == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_jdbc_servidor_http_spring_url);
             }
-            clab_criptomonedas.driver = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_driver);
-            if (clab_criptomonedas.driver == null) {
+            clab_criptomoneda.driver = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_driver);
+            if (clab_criptomoneda.driver == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_jdbc_servidor_http_spring_driver);
             }
-            clab_criptomonedas.conexion = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_conexion);
-            if (clab_criptomonedas.conexion == null) {
+            clab_criptomoneda.conexion = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_conexion);
+            if (clab_criptomoneda.conexion == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_jdbc_servidor_http_spring_conexion);
             }
-            clab_criptomonedas.usuario = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_usuario);
-            if (clab_criptomonedas.usuario == null) {
+            clab_criptomoneda.usuario = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_usuario);
+            if (clab_criptomoneda.usuario == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_jdbc_servidor_http_spring_usuario);
             }
-            clab_criptomonedas.clave = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_clave);
-            if (clab_criptomonedas.clave == null) {
+            clab_criptomoneda.clave = inicial.properties.getProperty(k_clab_criptomonedas_jdbc_servidor_http_spring_clave);
+            if (clab_criptomoneda.clave == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_jdbc_servidor_http_spring_clave);
             }
-            clab_criptomonedas.select = inicial.properties.getProperty(k_clab_criptomonedas_select);
-            if (clab_criptomonedas.select == null) {
+            clab_criptomoneda.select = inicial.properties.getProperty(k_clab_criptomonedas_select);
+            if (clab_criptomoneda.select == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_select);
             }
-            clab_criptomonedas.select_columnas_tex = inicial.properties.getProperty(k_clab_criptomonedas_select_columnas_tex);
-            if (clab_criptomonedas.select_columnas_tex == null) {
+            clab_criptomoneda.select_columnas_tex = inicial.properties.getProperty(k_clab_criptomonedas_select_columnas_tex);
+            if (clab_criptomoneda.select_columnas_tex == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_select_columnas_tex);
             }
-            clab_criptomonedas.select_columnas_cabecera_tex = inicial.properties.getProperty(k_clab_criptomonedas_select_columnas_cabecera_tex);
-            if (clab_criptomonedas.select_columnas_cabecera_tex == null) {
+            clab_criptomoneda.select_columnas_cabecera_tex = inicial.properties.getProperty(k_clab_criptomonedas_select_columnas_cabecera_tex);
+            if (clab_criptomoneda.select_columnas_cabecera_tex == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_select_columnas_cabecera_tex);
             }
-            clab_criptomonedas.select_pagina_tam = inicial.properties.getProperty(k_clab_criptomonedas_select_pagina_tam);
-            if (clab_criptomonedas.select_pagina_tam == null) {
+            clab_criptomoneda.select_pagina_tam = inicial.properties.getProperty(k_clab_criptomonedas_select_pagina_tam);
+            if (clab_criptomoneda.select_pagina_tam == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_select_pagina_tam);
             } else {
-                clab_criptomonedas.pagina_tam = Integer.valueOf(clab_criptomonedas.select_pagina_tam);
+                clab_criptomoneda.pagina_tam = Integer.valueOf(clab_criptomoneda.select_pagina_tam);
             }
-            clab_criptomonedas.select_count = inicial.properties.getProperty(k_clab_criptomonedas_select_count);
-            if (clab_criptomonedas.select_count == null) {
+            clab_criptomoneda.select_count = inicial.properties.getProperty(k_clab_criptomonedas_select_count);
+            if (clab_criptomoneda.select_count == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_select_count);
             }
-            clab_criptomonedas.insert = inicial.properties.getProperty(k_clab_criptomonedas_insert);
-            if (clab_criptomonedas.insert == null) {
+            clab_criptomoneda.insert = inicial.properties.getProperty(k_clab_criptomonedas_insert);
+            if (clab_criptomoneda.insert == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_insert);
             }
-            clab_criptomonedas.update = inicial.properties.getProperty(k_clab_criptomonedas_update);
-            if (clab_criptomonedas.update == null) {
+            clab_criptomoneda.update = inicial.properties.getProperty(k_clab_criptomonedas_update);
+            if (clab_criptomoneda.update == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_update);
             }
-            clab_criptomonedas.delete = inicial.properties.getProperty(k_clab_criptomonedas_delete);
-            if (clab_criptomonedas.delete == null) {
+            clab_criptomoneda.delete = inicial.properties.getProperty(k_clab_criptomonedas_delete);
+            if (clab_criptomoneda.delete == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_delete);
             }
-            clab_criptomonedas.letras_por_linea = inicial.properties.getProperty(k_clab_criptomonedas_letras_por_linea);
-            if (clab_criptomonedas.letras_por_linea == null) {
+            clab_criptomoneda.letras_por_linea = inicial.properties.getProperty(k_clab_criptomonedas_letras_por_linea);
+            if (clab_criptomoneda.letras_por_linea == null) {
                 ok.setTxt(ok.getTxt(), tr.in(in, "Falta definir la propiedad: ") + k_clab_criptomonedas_letras_por_linea);
             }
             if (ok.es == false) {
@@ -414,5 +338,37 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
         }
         return ok.es;
     }
-
+    /**
+     * Procesa los datos recibidos de una petición HTTP/S Get
+     * @param url
+     * @param ok
+     * @param extras_array
+     * @return
+     * @throws Exception 
+     */
+    @SuppressWarnings("unchecked")
+    public boolean procesar_formulario(URL url, oks ok, Object ... extras_array) throws Exception {
+        try {
+            if (ok.es == false) { return ok.es; }
+            if (url.getPath().endsWith(k_clab_criptomonedas_index_html)) {
+                Map<String, String> datos_mapa = new LinkedHashMap<>();
+                Map.Entry<String, Object> nueva_entrada;
+                urls.extraer_parametros_query(url, datos_mapa, ok);
+                if (ok.es == false) { return ok.es; }
+                String texto_html = clab_criptomoneda.procesar_formulario(datos_mapa, ok, extras_array);
+                if (ok.es == false) { return ok.es; }
+                List<Map.Entry<String, Object>> index_claves_valor_lista = clab_criptomoneda.index.exportar_valores(k_clave_index, ok, extras_array);
+                nueva_entrada = index_claves_valor_lista.get(0);
+                Map<String, String> valores_mapa = (Map<String, String>) nueva_entrada.getValue();
+                valores_mapa.put(k_formulario_tex, texto_html);
+                clab_criptomoneda.index.importar_valores(k_clave_index, index_claves_valor_lista, ok, extras_array);
+                if (ok.es == false) { return ok.es; }
+                capturar_formulario_index(clab_criptomoneda.index_valores_mapa, ok);
+                if (ok.es == false) { return ok.es; }
+            }
+        } catch (Exception e) {
+            ok.setTxt(e);
+        }
+        return ok.es;
+    }    
 }
