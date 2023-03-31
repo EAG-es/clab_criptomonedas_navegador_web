@@ -36,14 +36,57 @@
     <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${total_valor_bloqueado}"></td>
     <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${fecha_actualizacion}"></td>
 </tr>
-<div th:fragment="control_entradas" style="display: inline-block;padding: 3px;"><label>
+<div th:fragment="control_entradas" style="display: inline-block;padding: 3px;${style_fragmento_tex}"><label>
     <div th:attr="${atributos_error_tex}"
         th:style="${style_mensaje_error_tex}"
         th:utext="${mensaje_error_tex}"></div>        
     <spam th:text="${mensaje_de_captura_tex}"></spam>
-    <input th:type="${control_tipo_tex}"
+    <input step="any"
+        th:type="${control_tipo_tex}"
         th:id="${id_tex}"
         th:name="${clave_tex}"
         th:value="${valor_tex}"
         th:attr="${atributos_tex}"
+        th:style="background:lightsteelblue;${style_tex}"
         th:text="${contenido_input_tex}"></input></label></div>
+<div th:fragment="borrado_web_formularios"
+    th:style="${style_fragmento_tex}">
+    <div th:attr="${atributos_error_tex}"
+        th:style="${style_mensaje_error_tex}"
+        th:utext="${mensaje_error_tex}"></div>
+    <table style="border:1px solid;border-color:black;border-collapse: collapse;">
+        <thead>
+            <tr>
+                <td id="id_cabecera_1" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Id.cripto</td>
+                <td id="id_cabecera_2" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Símbolo</td>
+                <td id="id_cabecera_3" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Cap.de mercado</td>
+                <td id="id_cabecera_4" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Apo.circulante</td>
+                <td id="id_cabecera_5" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Cap.tot.diluida</td>
+                <td id="id_cabecera_6" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Apo.tot.</td>
+                <td id="id_cabecera_7" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Apo.máx.</td>
+                <td id="id_cabecera_8" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Dominancia</td>
+                <td id="id_cabecera_9" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">Tot.valor.bloq.</td>
+                <td id="id_cabecera_10" style="font-weight:bold;border:1px solid;border-color:black;padding:2px;text-align:center;">F.actu.</td>
+            </tr>
+        </thead>
+        <tbody>        
+            <tr>
+                <td style="border:1px solid;border-color:black;padding:2px;" th:utext="${id_criptomoneda}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;" th:utext="${simbolo}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${capitalizacion_de_mercado}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${aporte_circulante}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${capitalizacion_total_diluida}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${aporte_total}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${aporte_maximo}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${dominancia}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${total_valor_bloqueado}"></td>
+                <td style="border:1px solid;border-color:black;padding:2px;text-align:right;" th:utext="${fecha_actualizacion}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <form th:action="${url_destino_tex}" 
+        th:method="${metodo_tex}"
+        th:attr="${atributos_tex}"
+        th:style="${style_tex}"
+        th:utext="${contenido_formulario_tex}"></form>
+</div>
