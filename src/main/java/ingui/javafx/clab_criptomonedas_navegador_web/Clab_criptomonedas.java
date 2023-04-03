@@ -105,7 +105,7 @@ public class Clab_criptomonedas extends bases {
     public static String k_boton_actualizar_tex = "boton_actualizar_tex";
     public static String k_boton_borrar_tex = "boton_borrar_tex";
     public static String k_clab_criptomonedas_inicio_url = "https://localhost";
-    public static String k_clab_criptomonedas_index_html = "/clab_criptomonedas/index_html";
+    public static String k_clab_criptomonedas_index_html = "/clab_criptomonedas/index.html";
     public static String k_clab_criptomonedas_cancelar_html = null;
     public static String k_fragmentos_principales_ruta = "/re/templates/formularios/fragmentos/fragmentos_principales.html";
     public static String k_fragmentos_clab_criptomonedas_ruta = "/re/templates/clab_criptomonedas/fragmentos/fragmentos_clab_criptomonedas.html";
@@ -487,7 +487,7 @@ public class Clab_criptomonedas extends bases {
         return ok.es;
     }
     /**
-     * Crea el formulario de paginación de una página de una consulta de lectura.
+     * Crea el formulario de paginación de una página de insercion.
      * @param ok
      * @param extra_array
      * @return

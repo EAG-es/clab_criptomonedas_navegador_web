@@ -6,6 +6,7 @@ Depende de:
 - Modelos_comunicaciones: https://github.com/EAG-es/modelos_comunicaciones
 - Modelos_html: https://github.com/EAG-es/modelos_html
 - Navegador_web: https://github.com/EAG-es/navegador_web
+- Configurar JavaFX: https://github.com/EAG-es/configurar_javafx
 
 El servidor se es una aplicación construida con proyecto de JDBC_servidor_HTTPS_Spring: https://github.com/EAG-es/jdbc_servidor_https_spring
 
@@ -165,4 +166,3 @@ ALTER TABLE `criptomonedas`
 COMMIT;
 
 ```
->>>>>>> origin/master
