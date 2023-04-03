@@ -17,6 +17,7 @@ import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clab_criptomonedas_update;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_clave_index;
 import static ingui.javafx.clab_criptomonedas_navegador_web.Clab_criptomonedas.k_formulario_tex;
+import static inweb.modelos_html.formularios.web_formularios.k_nombre_fragmento;
 import ingui.javafx.navegador_web.Navegador_web;
 import innui.modelos.comunicaciones.url.urls;
 import innui.modelos.configuraciones.ResourceBundles;
@@ -38,7 +39,7 @@ import java.util.ResourceBundle;
 import javafx.collections.ObservableList;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import inweb.modelos_html.formularios.web_formularios;
+import inweb.modelos_html.modelos_html;
 
 /**
  *
