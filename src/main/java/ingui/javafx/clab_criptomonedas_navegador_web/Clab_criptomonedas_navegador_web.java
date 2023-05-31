@@ -122,7 +122,8 @@ public class Clab_criptomonedas_navegador_web extends Navegador_web {
         }    
     };
 
-    public Clab_criptomonedas_navegador_web() throws Exception {        
+    public Clab_criptomonedas_navegador_web() throws Exception { 
+        titulo_de_ventana = tr.in(in, "CLAB Criptomonedas navegador web");
     }
     
     public static void main(String[] args) {

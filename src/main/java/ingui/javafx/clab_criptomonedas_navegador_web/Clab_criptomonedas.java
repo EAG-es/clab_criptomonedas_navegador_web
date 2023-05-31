@@ -287,6 +287,7 @@ public class Clab_criptomonedas extends bases {
                 if (ok.es == false) { return null; }
                 String error_tex = insercion_web_formulario.valores_mapa.get(k_valores_mapa_mensaje_error_tex);
                 if (error_tex.isEmpty() == false) {
+                    insercion_web_formulario.capturar(ok, extras_array);
                     texto_html = insercion_web_formulario.getContenido_formulario_html();
                 } else {
                     LinkedList<Object> valores_lista = new LinkedList<>();
@@ -321,6 +322,7 @@ public class Clab_criptomonedas extends bases {
                 if (ok.es == false) { return null; }
                 String error_tex = insercion_web_formulario.valores_mapa.get(k_valores_mapa_mensaje_error_tex);
                 if (error_tex.isEmpty() == false) {
+                    insercion_web_formulario.capturar(ok, extras_array);
                     texto_html = insercion_web_formulario.getContenido_formulario_html();
                 } else {
                     LinkedList<Object> valores_lista = new LinkedList<>();
@@ -355,6 +357,7 @@ public class Clab_criptomonedas extends bases {
                 if (ok.es == false) { return null; }
                 String error_tex = borrado_web_formulario.valores_mapa.get(k_valores_mapa_mensaje_error_tex);
                 if (error_tex.isEmpty() == false) {
+                    borrado_web_formulario.capturar(ok, extras_array);
                     texto_html = borrado_web_formulario.getContenido_formulario_html();
                 } else {
                     String id_criptomoneda_tex = null;
